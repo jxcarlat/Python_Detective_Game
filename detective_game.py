@@ -253,7 +253,7 @@ def question_witnesses(name, notebook_entries):
                 print("'That's enough detective! We won't be harassed anymore tonight by the Salem Police! If you want more information you can speak to our attornies!")
                 print(
                     "*They've shut down on you. There's nothing more to say here. With that, you back away from the witnesses.*")
-                return True
+                return False
             elif(response == "2"):
                 witness_will_follow = question_witnesses_segment(
                     name, notebook_entries)
@@ -262,7 +262,7 @@ def question_witnesses(name, notebook_entries):
                     "\n*The confident witness looks visibly fed up* 'Look you can talk to our attornies, we're done talking!")
                 print(
                     "*There's nothing more to gain here, you step away from the witnesses.*\n")
-                return True
+                return False
         else:
             print("\n*The witness looks at you strangely, it seems she didn't quite understand what you were trying to say*\n")
             response = input(
@@ -362,6 +362,7 @@ def question_witnesses_commence(outcome, notebook_entries):
 def enter_woods(gained_follower, name, notebook_entries):
     while True:
         if(gained_follower == 1):
+            print(gained_follower)
             print("\n*The witness you questioned previously begins coming down the hill towards you as you near the opening of the woods*")
             print("*She tells you briefly that she sent her friend home and that she couldn't take being questioned much more.. Understandably you don't press the issue*")
             print("*However, the officer that greeted you as you came onto the scene is making his way towards the both of you now.. It seems he's not very happy with the current circumstances*")
