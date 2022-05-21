@@ -18,14 +18,17 @@ def print_notebook_display(notebook_entries):
             print(f"{entry}")
         print("----------------------------------")
 
+
 def game_opening():
     print("*Police Sirens* 'Hello Dispatch?, We're going to need a coroner and some backup.. Looks like a homicide.. I see lacerations on the victim and signs of a struggle.. ")
     print("I can also see shoe prints leading into the woods, our suspect may still be out there on foot.. We have a couple of witnesses here who say they've caught a glimpse of ")
     print("who the perpetrator is but one of them seems to be rather shaken up by the experience.. Get here as fast as possible over and out.\n")
 
+
 def character_creation():
     print("*You step out of a police cruiser and begin walking towards the scene of the crime, a younger man in uniform approaches you as you come near*")
     return input("What's your name detective?: (Last name preferred) ")
+
 
 def game_commence(name):
     print(f"\nWell Detective {name}, I'm going to give you a brief rundown of the situation and then I'm going to let you take point. We've got a homicide that occurred here not too long ago.")
@@ -58,6 +61,7 @@ def game_commence(name):
             f"\n*His gaze remains on the forest in the distance with a neutral expression* 'Tell you what Detective {name}, when you return to the city and convince them to increase ")
         print("the budget for police funding for our rural town of Salem, I'll follow you everywhere. Even into the goddamn sewer.'")
         print("*You can tell that the officer wishes he wasn't stationed here.. He didn't have a choice*\n")
+
 
 def investigation(name):
     notebook_entries = []
@@ -92,7 +96,8 @@ def investigation(name):
                     "*You feel you've bothered the witnesses with enough questions for one night.*")
         elif(choice == "3"):
             if(not survived_woods):
-                survived_woods = enter_woods(gained_follower, name, notebook_entries)
+                survived_woods = enter_woods(
+                    gained_follower, name, notebook_entries)
                 alive = survived_woods
                 if(not alive):
                     continue
@@ -135,6 +140,7 @@ def investigation(name):
         choice = input(
             "1). Inspect the body\n2). Question witnesses\n3). Enter the woods\n4). Display Notebook\n5). Conclude Investigation\n")
 
+
 def inspect_body(notebook_entries):
     finish_inspection = False
     additional_features = [False, False, False]
@@ -169,7 +175,8 @@ def inspect_body(notebook_entries):
                     "You notice bruising and brackish colors on the knuckles. The victim fought back while she was being attacked.")
                 print("Signs of a struggle.\n")
                 additional_features[2] = True
-                notebook_entries.append("Victim has brusing on the knuckles showing signs of struggle.")
+                notebook_entries.append(
+                    "Victim has brusing on the knuckles showing signs of struggle.")
             else:
                 print(
                     "\nIt seems there are no more additional features to be gleemed from the victim.\n")
@@ -187,7 +194,8 @@ def inspect_body(notebook_entries):
                 print("then why would there be additional droplets on the victim's body? You would expect streak patterns, indicating a sweeping motion of the blade, not droplets.")
                 print(
                     "You don't want to assume anything, not without an official analysis, but this may not be the victim's blood.\n")
-                notebook_entries.append("Abnormal blood spatter pattern found on victim may not belong to the victim.")
+                notebook_entries.append(
+                    "Abnormal blood spatter pattern found on victim may not belong to the victim.")
                 inspect_blood_spatter = True
             else:
                 print("\nThe blood spatter remains the same. Droplets, not streaks.\n")
@@ -195,7 +203,8 @@ def inspect_body(notebook_entries):
             if(check_ground != True):
                 print("\nThe ground surrounding the victim seems to be soaked in crimson mixed with the brown of the soil, creating a dark brackish color.")
                 print("You also notice the shoe prints near the victim. Judging from the sole, you could say the shoe size was 10.5, the average size for a male\n")
-                notebook_entries.append("Shoe prints on the ground near victim indicate possibility of male gender.")
+                notebook_entries.append(
+                    "Shoe prints on the ground near victim indicate possibility of male gender.")
                 check_ground = True
             else:
                 print(
@@ -214,6 +223,7 @@ def inspect_body(notebook_entries):
             finish_inspection = True
     return True
 
+
 def question_witnesses(name, notebook_entries):
     witness_will_follow = False
     print("\nYou approach the two witnesses, both are female, young adults. One avoids eye contact and shakes with little tremors, the other looks directly at you as you come forward.")
@@ -225,9 +235,13 @@ def question_witnesses(name, notebook_entries):
     response = input("1). I'm not an officer from Salem, I'm a detective from Selensky county and I just want to help.\n2). *Motion to the anxious witness* Excuse me miss, is something wrong?\n")
     while True:
         if(witness_will_follow):
-            return 1
+            if(witness_will_follow == 1):
+                return 1
+            else:
+                return False
         elif(response == "1"):
-            witness_will_follow = question_witnesses_segment(name, notebook_entries)
+            witness_will_follow = question_witnesses_segment(
+                name, notebook_entries)
         elif(response == "2"):
             print("\n*The more anxious witness looks away from you quickly and whimpers a little before the other steps in for her.*")
             print(
@@ -241,7 +255,8 @@ def question_witnesses(name, notebook_entries):
                     "*They've shut down on you. There's nothing more to say here. With that, you back away from the witnesses.*")
                 return True
             elif(response == "2"):
-                witness_will_follow = question_witnesses_segment(name, notebook_entries)
+                witness_will_follow = question_witnesses_segment(
+                    name, notebook_entries)
             else:
                 print(
                     "\n*The confident witness looks visibly fed up* 'Look you can talk to our attornies, we're done talking!")
@@ -253,15 +268,18 @@ def question_witnesses(name, notebook_entries):
             response = input(
                 "1). I'm not an officer from Salem, I'm a detective from Selensky county and I just want to help.\n2). *Motion to the anxious witness* Excuse me miss, is something wrong?\n")
 
+
 def question_witnesses_segment(name, notebook_entries):
     response = question_witnesses_good_response()
     outcome = question_witnesses_continued_conversation(
         response, name)
     if(outcome == True):
-        return outcome
+        return -1
     else:
-        witness_will_follow = question_witnesses_commence(outcome, notebook_entries)
+        witness_will_follow = question_witnesses_commence(
+            outcome, notebook_entries)
         return witness_will_follow
+
 
 def question_witnesses_good_response():
     print("\n*The woman breathes a sigh of relief* 'Thank god. In that case I'll do my best to help out, but only on one condition.'")
@@ -269,6 +287,7 @@ def question_witnesses_good_response():
     print("Take me with you and we'll look for any leads and even catch the guy if we run into him.'\n")
     response = input("1). No way, we can't have civilians putting their lives at risk if a murderer is on the loose.\n2). Very well, if I go into the forest you'll be coming with me.\n")
     return response
+
 
 def question_witnesses_continued_conversation(response, name):
     while True:
@@ -289,6 +308,7 @@ def question_witnesses_continued_conversation(response, name):
             response = input(
                 "1). No way, we can't have civilians putting their lives at risk if a murderer is on the loose.\n2). Very well, if I go into the forest you'll be coming with me.\n")
 
+
 def question_witnesses_commence(outcome, notebook_entries):
     blue_coat = False
     time_of_death = False
@@ -298,7 +318,8 @@ def question_witnesses_commence(outcome, notebook_entries):
             if(not blue_coat):
                 print("\n'I remember seeing a someone in a blue coat I think.. There was something shiny that caught my eye.. I think it was on their coat.'\n")
                 blue_coat = True
-                notebook_entries.append("Witness account: I remember seeing someone in a blue coat, allegedly there was something shiny on their coat")
+                notebook_entries.append(
+                    "Witness account: I remember seeing someone in a blue coat, allegedly there was something shiny on their coat")
             else:
                 print(
                     "\n'He was wearing a blue coat with something shiny on it.. That's all I remember.'\n")
@@ -307,7 +328,8 @@ def question_witnesses_commence(outcome, notebook_entries):
                 print("\n'It was at 7:00 PM, we just came back from work at 'Good Eats Diner'. That was when we heard someone screaming and I rushed over.'")
                 print("*7:00 PM was just a little over 2 hours ago*\n")
                 time_of_death = True
-                notebook_entries.append("The murder took place 2 hours ago, very recently.")
+                notebook_entries.append(
+                    "The murder took place 2 hours ago, very recently.")
             else:
                 print("\n'It was 7:00 PM.. I'm sure of it..'\n")
         elif(outcome == "3"):
@@ -319,7 +341,8 @@ def question_witnesses_commence(outcome, notebook_entries):
                 print(
                     "*After saying that she shuts down again.. There's nothing more to ask her*\n")
                 saw_face = True
-                notebook_entries.append("2nd Witness account: I saw his face. This confirms the perpetrator's gender was male.")
+                notebook_entries.append(
+                    "2nd Witness account: I saw his face. This confirms the perpetrator's gender was male.")
             else:
                 print(
                     "\n*You got what you needed. You decide it would be better to give her some space*\n")
@@ -334,6 +357,7 @@ def question_witnesses_commence(outcome, notebook_entries):
         else:
             print("\n*You almost say something but you begin coughing. Probably for the best since you were at a loss for words anyway*\n")
         outcome = input("1). I heard from the other officer that you've caught a glimpse of the killer, can you describe any details?\n2). What time did you see the culprit?\n3). *Try questioning the other witness*\n4). Display Notebook\n5). End questioning\n")
+
 
 def enter_woods(gained_follower, name, notebook_entries):
     while True:
@@ -380,6 +404,7 @@ def enter_woods(gained_follower, name, notebook_entries):
             print("*It says 'Off'")
             return False
 
+
 def protect_follower(name, notebook_entries):
     print("\n*The officer looks at you and seems ready to go off, but catches himself before saying something that could be detrimental to his career*")
     print(
@@ -390,8 +415,10 @@ def protect_follower(name, notebook_entries):
     print("*You reach the end of the trail and happen upon something particularly shiny on the ground.. You begin bending over to look at what seems to be lettering on the object..*")
     print("*It says 'Off' but scuff marks make it hard to read the rest.. There seems to be one final word on the shiny object before you tuck it away into your overcoat*")
     print("*The name reads 'Johnson'*")
-    notebook_entries.append("Found what appears to be a shiny object. It says 'Off' on top and the name just below it says 'Johnson'")
+    notebook_entries.append(
+        "Found what appears to be a shiny object. It says 'Off' on top and the name just below it says 'Johnson'")
     print("*The witness looks to you for any indication of what you might think.. You merely nod your head to her.. and begin trekking out of the woods and back to the crime scene.*\n")
+
 
 def main():
     name = ""
@@ -399,5 +426,6 @@ def main():
     name = character_creation()
     game_commence(name)
     investigation(name)
+
 
 main()
